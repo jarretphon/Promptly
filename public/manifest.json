@@ -1,0 +1,16 @@
+{
+    "name": "Promptly",
+    "description": "Browse, edit, and save prompt-engineering templates to craft high-quality AI prompts effortlessly.",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "icons": {
+        "16": "images/promptly-icon.png",
+        "32": "images/promptly-icon.png",
+        "48": "images/promptly-icon.png",
+        "128": "images/promptly-icon.png"
+    },
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "images/promptly-icon.png"
+    }
+}
