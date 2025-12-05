@@ -1,10 +1,18 @@
-import './App.css'
+//import './App.css'
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+import { Box } from '@mui/material'
+import Nav from './Nav.jsx'
+import PromptCard from './PromptCard.jsx'
 
 function App() {
   return (
-    <div>
-      <h1>Promptly</h1>
-    </div>
+    <Box>
+      <Nav />
+      <PromptCard />
+    </Box>
   )
 }
 

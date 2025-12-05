@@ -3,14 +3,29 @@
     "description": "Browse, edit, and save prompt-engineering templates to craft high-quality AI prompts effortlessly.",
     "version": "1.0.0",
     "manifest_version": 3,
+    "permissions": ["storage", "tabs", "sidePanel"],
+    "host_permissions": ["https://chatgpt.com/*", "https://chat.openai.com/*", "https://*.chat.openai.com/*"],
     "icons": {
         "16": "images/promptly-icon.png",
         "32": "images/promptly-icon.png",
         "48": "images/promptly-icon.png",
         "128": "images/promptly-icon.png"
     },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*", "https://*.chat.openai.com/*"],
+            "js": ["contentScript.js"]
+        }
+    ],
+    "side_panel": {
+        "default_path": "index.html"
+    },
     "action": {
-        "default_popup": "index.html",
+        "default_title": "Click to open panel",
         "default_icon": "images/promptly-icon.png"
     }
+    
 }
