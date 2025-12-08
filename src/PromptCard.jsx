@@ -29,6 +29,10 @@ export default function PromptCard({ title, description, content }) {
         setPreviewed(false);
         setExpanded(false);
       }}
+      sx = {{ 
+        boxShadow: theme => theme.shadows[previewed ? 3 : 1], 
+        transition: theme => theme.transitions.create('box-shadow', { duration: theme.transitions.duration.shortest }) 
+      }}
     >
       <CardHeader
         title={title}

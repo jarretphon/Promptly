@@ -1,4 +1,4 @@
-//import './App.css'
+import './App.css'
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -6,26 +6,25 @@ import "@fontsource/roboto/700.css";
 import { Box } from "@mui/material";
 import Nav from "./Nav.jsx";
 import PromptCard from "./PromptCard.jsx";
+import Grid from "@mui/material/Grid";
+import general from "./data/general.js";
 
 function App() {
   return (
     <Box sx={{ width: "100%", p: 0 }}>
       <Nav />
-      <PromptCard
-        title="Title 1"
-        description="Description 1"
-        content={`Content 1
-          Line 2 
-          Line 3
-          Line 4
-          Line 5
-          Line 6`}
-      />
-      <PromptCard
-        title="Title 2"
-        description="Description 2"
-        content="Content 2"
-      />
+      <Grid container spacing={1}>
+        {general.map((prompt) => (
+          <Grid item size={{ xs: 12, md: 6 }} key={prompt.id}>
+            <PromptCard
+              key={prompt.id}
+              title={prompt.title}
+              description={prompt.description}
+              content={prompt.content}
+            />
+          </Grid>
+        ))} 
+      </Grid>
     </Box>
   );
 }
