@@ -3,7 +3,7 @@
   "description": "Browse, edit, and save prompt-engineering templates to craft high-quality AI prompts effortlessly.",
   "version": "1.0.0",
   "manifest_version": 3,
-  "permissions": ["storage", "tabs", "sidePanel"],
+  "permissions": ["storage", "tabs", "sidePanel",  "scripting", "activeTab"],
   "host_permissions": [
     "https://chatgpt.com/*",
     "https://chat.openai.com/*",

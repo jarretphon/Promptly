@@ -13,6 +13,13 @@ import {
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+const forwardContent = (content) => {
+  chrome.runtime.sendMessage({
+      action: "forward_to_webpage",
+      content: content
+  });
+}
+
 export default function PromptCard({ title, description, content }) {
   const [previewed, setPreviewed] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -53,7 +60,7 @@ export default function PromptCard({ title, description, content }) {
         <StyledCardContent>
           <Box
             sx={{ maxHeight: expanded ? "none" : 100 }}
-            onClick={() => alert("clicked")}
+            onClick={() => forwardContent(content)}
           >
             <StyledContentText>{content}</StyledContentText>
             {!expanded && <BottomFade aria-hidden />}
