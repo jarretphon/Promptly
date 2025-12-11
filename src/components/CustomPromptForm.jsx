@@ -9,42 +9,15 @@ import {
   MenuItem,
 } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
+import { promptCategories, folders } from "../constants/constant";
 
 export default function CustomPromptForm({ onSubmit }) {
-  const theme = useTheme();
-
-  const [values, setValues] = useState({
-    title: "",
-    description: "",
-    content: "",
-    category: "custom",
-    folder: "no folder",
-  });
+  const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
-
-  const categories = [
-    { value: "writing", label: "Writing" },
-    { value: "coding", label: "Coding" },
-    { value: "business", label: "Business" },
-    { value: "marketing", label: "Marketing" },
-    { value: "productivity", label: "Productivity" },
-    { value: "creative", label: "Creative" },
-    { value: "analysis", label: "Analysis" },
-    { value: "education", label: "Education" },
-    { value: "custom", label: "Custom" },
-  ];
-
-  const folders = [
-    { value: "no folder", label: "No Folder" },
-    { value: "inbox", label: "Inbox" },
-    { value: "work", label: "Work" },
-    { value: "personal", label: "Personal" },
-    { value: "archive", label: "Archive" },
-  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setValues((prev) => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -61,124 +34,122 @@ export default function CustomPromptForm({ onSubmit }) {
 
   const submit = (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
-    if (onSubmit) onSubmit(values);
-    else console.log("form submit", values);
+    if (!validateForm()) {
+      return;
+    }
+    if (onSubmit) {
+      onSubmit(values);
+    }
+    console.log("form submit", values);
   };
 
   return (
     <Box component="form" onSubmit={submit}>
-      <TextField
-        name="title"
-        label="Title"
-        placeholder="E.g. Blog Post Outline Generator"
-        value={values.title}
-        onChange={handleChange}
-        error={!!errors.title}
-        helperText={errors.title}
-        fullWidth
-        required
-        margin="normal"
-      />
-      <TextField
-        name="description"
-        label="Description"
-        placeholder="Brief description of what this prompt does"
-        value={values.description}
-        onChange={handleChange}
-        error={!!errors.description}
-        helperText={errors.description}
-        fullWidth
-        required
-        margin="normal"
-      />
-      <TextField
-        name="content"
-        label="Prompt Content"
-        placeholder="Write your prompt here... Use [BRACKETS] for variables"
-        multiline
-        rows={6}
-        value={values.content}
-        onChange={handleChange}
-        error={!!errors.content}
-        helperText={errors.content}
-        fullWidth
-        required
-        margin="normal"
-      />
+      {textFields.map((field) => (
+        <TextField
+          key={field.name}
+          name={field.name}
+          label={field.label}
+          placeholder={field.placeholder}
+          value={formData[field.name]}
+          onChange={handleChange}
+          error={!!errors[field.name]}
+          helperText={errors[field.name]}
+          fullWidth
+          margin="normal"
+          multiline={field.multiline}
+          rows={field.rows}
+          autoComplete="off"
+        />
+      ))}
 
       <Grid container spacing={2} my={1}>
-        <Grid item size={6}>
-          <InputLabel>Category</InputLabel>
-          <Select
-            name="category"
-            label="Category"
-            defaultValue="custom"
-            value={values.category}
-            onChange={handleChange}
-            fullWidth
-          >
-            {categories.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </Grid>
-
-        <Grid item size={6}>
-          <InputLabel>Folder</InputLabel>
-          <Select
-            name="folder"
-            label="Folder"
-            defaultValue="no folder"
-            value={values.folder}
-            onChange={handleChange}
-            fullWidth
-          >
-            {folders.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </Grid>
+        {selectFields.map((field) => (
+          <Grid item size={6} key={field.name}>
+            <InputLabel>{field.label}</InputLabel>
+            <Select
+              name={field.name}
+              label={field.label}
+              value={formData[field.name]}
+              onChange={handleChange}
+              fullWidth
+            >
+              {field.options.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
+        ))}
       </Grid>
 
-      <Box
-        spacing={1}
-        my={3}
-        gap={1}
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "stretch",
-          [theme.breakpoints.down(theme.breakpoints.values.tiny)]: {
-            flexDirection: "column-reverse",
-          },
-        }}
-      >
+      <FormActionContainer>
         <Button
           type="button"
           variant="outlined"
-          onClick={() =>
-            setValues({
-              title: "",
-              description: "",
-              content: "",
-              category: "custom",
-              folder: "no folder",
-            })
-          }
+          onClick={() => setFormData(initialFormData)}
           fullWidth
         >
           Cancel
         </Button>
-
         <Button type="submit" variant="contained" fullWidth>
           Create Prompt
         </Button>
-      </Box>
+      </FormActionContainer>
     </Box>
   );
 }
+
+const FormActionContainer = styled(Box)(({ theme }) => ({
+  gap: theme.spacing(1),
+  spacing: theme.spacing(1),
+  marginTop: theme.spacing(3),
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "stretch",
+  [theme.breakpoints.down(theme.breakpoints.values.tiny)]: {
+    flexDirection: "column-reverse",
+  },
+}));
+
+const initialFormData = {
+  title: "",
+  description: "",
+  content: "",
+  category: "custom",
+  folder: "no folder",
+};
+
+const textFields = [
+  {
+    name: "title",
+    label: "Title",
+    placeholder: "E.g. Blog Post Outline Generator",
+  },
+  {
+    name: "description",
+    label: "Description",
+    placeholder: "Brief description of what this prompt does",
+  },
+  {
+    name: "content",
+    label: "Prompt Content",
+    placeholder: "Write your prompt here... Use [BRACKETS] for variables",
+    multiline: true,
+    rows: 6,
+  },
+];
+
+const selectFields = [
+  {
+    name: "category",
+    label: "Category",
+    options: promptCategories,
+  },
+  {
+    name: "folder",
+    label: "Folder",
+    options: folders,
+  },
+];
