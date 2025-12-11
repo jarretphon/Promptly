@@ -12,7 +12,7 @@ import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import CircleIcon from "@mui/icons-material/Circle";
-import folderColors from "../constants/constant";
+import { folderColors } from "../constants/constant";
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
