@@ -23,24 +23,13 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function NewFolderDialog() {
-  const [open, setOpen] = useState(false);
+export default function NewFolderDialog({ open, onClose }) {
   const [name, setName] = useState("");
   const [selectedColor, setSelectedColor] = useState(folderColors[0]);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
-      </Button>
-      <StyledDialog onClose={handleClose} open={open}>
+      <StyledDialog open={open}>
         <DialogContent>
           <DialogContentText
             fontWeight={700}
@@ -50,11 +39,7 @@ export default function NewFolderDialog() {
           >
             Create New Folder
           </DialogContentText>
-          <CloseDialogButton
-            aria-label="close"
-            size="small"
-            onClick={handleClose}
-          >
+          <CloseDialogButton aria-label="close" size="small" onClick={onClose}>
             <CloseIcon />
           </CloseDialogButton>
 

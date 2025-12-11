@@ -4,31 +4,21 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Box } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
 import Nav from "./Nav.jsx";
-import PromptCard from "./PromptCard.jsx";
-import Grid from "@mui/material/Grid";
-import general from "./data/general.js";
-import FolderList from "./components/FolderList.jsx";
-import NewFolderDialog from "./components/NewFolderDialog.jsx";
-import CustomPromptForm from "./components/CustomPromptForm.jsx";
+import PromptLibrary from "./pages/PromptLibrary.jsx";
+import SavedPrompts from "./pages/SavedPrompts.jsx";
+import PromptBuilder from "./pages/PromptBuilder.jsx";
 
 function App() {
   return (
     <Box sx={{ width: "100%", p: 0 }}>
       <Nav />
-      <Grid container spacing={1}>
-        {general.map((prompt) => (
-          <Grid item size={{ xs: 12, md: 6 }} key={prompt.id}>
-            <PromptCard
-              key={prompt.id}
-              title={prompt.title}
-              description={prompt.description}
-              content={prompt.content}
-            />
-          </Grid>
-        ))}
-      </Grid>
-      <CustomPromptForm />
+      <Routes>
+        <Route path="/" element={<PromptLibrary />} />
+        <Route path="/saved" element={<SavedPrompts />} />
+        <Route path="/builder" element={<PromptBuilder />} />
+      </Routes>
     </Box>
   );
 }

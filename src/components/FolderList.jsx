@@ -1,5 +1,4 @@
 import {
-  Box,
   List,
   ListItem,
   ListItemButton,
@@ -11,6 +10,8 @@ import {
 import LensIcon from "@mui/icons-material/Lens";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddIcon from "@mui/icons-material/Add";
+import { useState } from "react";
+import NewFolderDialog from "./NewFolderDialog";
 
 function Folder({ color, name }) {
   return (
@@ -25,12 +26,27 @@ function Folder({ color, name }) {
 }
 
 export default function FolderList() {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   return (
     <>
       <List>
         <ListItem
           secondaryAction={
-            <IconButton size="small" edge="end" aria-label="add folder">
+            <IconButton
+              size="small"
+              edge="end"
+              aria-label="add folder"
+              onClick={handleDialogOpen}
+            >
               <AddIcon />
             </IconButton>
           }
@@ -43,6 +59,7 @@ export default function FolderList() {
         <Folder color="rgba(216, 171, 67, 1)" name="Spam" />
         <Folder color="#363636ff" name="Trash" />
       </List>
+      <NewFolderDialog open={dialogOpen} onClose={handleDialogClose} />
     </>
   );
 }
