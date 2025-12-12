@@ -15,7 +15,9 @@ import NewFolderDialog from "./NewFolderDialog";
 
 function Folder({ color, name }) {
   return (
-    <ListItemButton sx={{ borderRadius: (theme) => theme.shape.borderRadius }}>
+    <ListItemButton
+      sx={{ borderRadius: (theme) => theme.shape.borderRadius, py: 0.5 }}
+    >
       <ListItemIcon sx={{ color: color }}>
         <LensIcon fontSize="small" />
       </ListItemIcon>
