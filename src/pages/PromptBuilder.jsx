@@ -8,10 +8,7 @@ export default function PromptBuilder() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
-        Prompt Builder
-      </Typography>
+    <Box sx={{ px: 2 }}>
       <CustomPromptForm onSubmit={handleSubmit} />
     </Box>
   );

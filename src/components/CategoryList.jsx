@@ -13,7 +13,13 @@ export default function CategoryList({ categories, header }) {
       {categories.map((category) => {
         const IconComponent = category.icon;
         return (
-          <ListItemButton sx={{ py: 0.5 }}>
+          <ListItemButton
+            sx={{
+              py: 0.5,
+              borderRadius: 2,
+              "&:hover": { backgroundColor: "#F1F5F9" },
+            }}
+          >
             <ListItemIcon>
               <IconComponent fontSize="small" />
             </ListItemIcon>

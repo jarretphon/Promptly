@@ -7,9 +7,11 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Typography,
 } from "@mui/material";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { promptCategories, folders } from "../constants/constant";
+import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 
 export default function CustomPromptForm({ onSubmit }) {
   const [formData, setFormData] = useState(initialFormData);
@@ -45,6 +47,13 @@ export default function CustomPromptForm({ onSubmit }) {
 
   return (
     <Box component="form" onSubmit={submit}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2, pt: 2 }}>
+        <AutoStoriesOutlinedIcon sx={{ color: "#4F46E5" }} />
+        <Typography variant="body1" fontWeight={500}>
+          Create New Prompt
+        </Typography>
+      </Box>
+
       {textFields.map((field) => (
         <TextField
           key={field.name}
@@ -90,10 +99,23 @@ export default function CustomPromptForm({ onSubmit }) {
           variant="outlined"
           onClick={() => setFormData(initialFormData)}
           fullWidth
+          sx={{
+            color: "#0A0A0A",
+            borderColor: "#D6D6D6",
+            "&:hover": { backgroundColor: "#F5F5F5" },
+          }}
         >
           Cancel
         </Button>
-        <Button type="submit" variant="contained" fullWidth>
+        <Button
+          type="submit"
+          variant="contained"
+          fullWidth
+          sx={{
+            backgroundColor: "#4F46E5",
+            "&:hover": { backgroundColor: "#4338CA" },
+          }}
+        >
           Create Prompt
         </Button>
       </FormActionContainer>
