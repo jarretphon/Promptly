@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-function Nav() {
+function Nav(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -16,7 +16,7 @@ function Nav() {
   };
 
   return (
-    <Box>
+    <Box {...props}>
       <IconButton id="menu-button" aria-label="menu" onClick={handleClick}>
         <MenuIcon />
       </IconButton>
